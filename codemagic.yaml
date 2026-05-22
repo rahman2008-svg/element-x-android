@@ -1,0 +1,31 @@
+workflows:
+  elementx-debug:
+    name: Element X Debug APK
+
+    environment:
+      java: 21
+
+    scripts:
+      - name: Accept Android Licenses
+        script: |
+          yes | sdkmanager --licenses
+
+      - name: Gradle Permission
+        script: |
+          chmod +x gradlew
+
+      - name: Clean Project
+        script: |
+          ./gradlew clean
+
+      - name: Build Debug APK
+        script: |
+          ./gradlew assembleDebug
+
+    artifacts:
+      - "**/build/outputs/**/*.apk"
+
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
